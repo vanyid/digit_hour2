@@ -20,8 +20,7 @@ tBOOL ct_Init()
   tBOOL ret = TRUE;
 
   T1CON = 0b00001111;
-  TMR1H = 0x80;
-  TMR1L = 0x00;
+  SET_TMR1();
   TMR1IP = 1;           /* High interrupt prio */
   TMR1IF = 0;
   TMR1IE = 1;

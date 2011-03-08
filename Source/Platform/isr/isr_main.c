@@ -20,7 +20,7 @@ void interrupt isr_high()
   if (TMR1IF)
   {
     TMR1IF = 0;
-    TMR1H = 0x80; TMR1L = 0;
+    SET_TMR1();
     (void)ct_Run();
   }
 
