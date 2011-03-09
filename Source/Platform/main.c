@@ -7,6 +7,7 @@
 
 #include "datatype.h"
 #include "ct_exp.h"
+#include "outd_exp.h"
 
 
 
@@ -16,6 +17,7 @@ void main()
 
   /* Init Clock Timer module */
   (void)ct_Init();
+  (void)OUTD_Init();
 
   IPEN = 1;             /* enable high and low prio interrupt */
   PEIE = 1; GIE = 1;    /* enable interrupt */
@@ -26,6 +28,6 @@ void main()
   /* Go infinite loop (BackGround Task) */
   while (1)
   {
-
+    (void)OUTD_Run();
   }
 }
