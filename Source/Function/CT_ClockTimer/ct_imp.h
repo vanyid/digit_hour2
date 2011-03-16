@@ -12,5 +12,6 @@
 #define CT_IMP_H_
 
 #include "datatype.h"
+#include "outd_exp.h"
 
 #endif

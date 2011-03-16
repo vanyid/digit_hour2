@@ -21,7 +21,7 @@ void interrupt isr_high()
   {
     TMR1IF = 0;
     SET_TMR1();
-    (void)ct_Run();
+    (void)ct_1s_Run();
   }
 
 }
@@ -32,7 +32,12 @@ void interrupt isr_high()
  * ******************************* */
 void interrupt low_priority isr_low()
 {
-
+  if (TMR0IF)
+  {
+    TMR0IF = 0;
+    SET_TMR0();
+    (void)ct_1ms_Run();
+  }
 
 }
 

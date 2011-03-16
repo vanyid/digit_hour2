@@ -18,7 +18,6 @@
 volatile tDigit Digit[MAX_DIGIT_NUM];
 
 tUI8 counter = 0;     // digit counter
-tUI8 pr = (tUI8)num_0;
 
 /***********************************************************************************************
  *                                          LOCAL VARIABLE
@@ -104,8 +103,7 @@ tBOOL OUTD_Run()
   Update_Digit(MAX_DIGIT_NUM);  // nothing
   Update_Segment(Digit[counter].Value, Digit[counter].Dot);
   Update_Digit(counter);
-
-  if (++pr == (tUI8)seg_a) { pr = (tUI8)num_0; }
   if (++counter >= MAX_DIGIT_NUM) { counter = 0; }
+
   return (ret);
 }

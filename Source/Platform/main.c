@@ -28,6 +28,10 @@ void main()
   /* Go infinite loop (BackGround Task) */
   while (1)
   {
-    (void)OUTD_Run();
+    if (Run_1ms_task)
+    {
+      Run_1ms_task = FALSE;
+      (void)OUTD_Run();
+    }
   }
 }
