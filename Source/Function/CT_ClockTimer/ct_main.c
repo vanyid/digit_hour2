@@ -11,10 +11,25 @@
 #include "ct_imp.h"
 #include "ct_exp.h"
 
-tUI8  timer1s = 0;
-tUI8  timer1ms = 0;
+/***********************************************************************************************
+ *                                              MACROS
+ ***********************************************************************************************/
 
+/***********************************************************************************************
+ *                                          GLOBAL VARIABLE
+ ***********************************************************************************************/
 tBOOL Run_1ms_task;
+
+tTime Times[1];
+
+/***********************************************************************************************
+ *                                          LOCAL VARIABLE
+ ***********************************************************************************************/
+
+/***********************************************************************************************
+ *                                            PROTOTYPES
+ ***********************************************************************************************/
+
 
 /* *************************** *
  *  Init component             *
@@ -22,6 +37,7 @@ tBOOL Run_1ms_task;
 tBOOL ct_Init()
 {
   tBOOL ret = TRUE;
+  tUI8  ii;
 
   /* TIMER1 1s timer */
   T1CON = 0b10001111;
@@ -43,10 +59,15 @@ tBOOL ct_Init()
   TMR0IE = 1;           // interrupt enable
   TMR0ON = 1;           // enable timer0
 
-
-  timer1s = 0;
-  timer1ms = 0;
   Run_1ms_task = FALSE;
+
+  for (ii=0; ii<1; ii++)
+  {
+    Times[ii].day = eHetfo;
+    Times[ii].hour = 22;
+    Times[ii].minute = 00;
+    Times[ii].sec = 00;
+  }
   return (ret);
 }
 
@@ -57,8 +78,7 @@ tBOOL ct_1s_Run()
 {
   tBOOL ret = TRUE;
 
-  Digit[0].Value++;
-  Digit[1].Dot ^= (tBOOL)1;
+  IncTime(&Times[0]);
 
   return (ret);
 }
@@ -71,4 +91,24 @@ tBOOL ct_1ms_Run()
   return (ret);
 }
 
+
+void IncTime(tTime *time)
+{
+  if (++time->sec == 60)
+  {
+    time->sec = 0;
+    if (++time->minute == 60)
+    {
+      time->minute = 0;
+      if (++time->hour == 24)
+      {
+        time->hour = 0;
+        if (++time->day == (eVasarnap+1))
+        {
+          time->day = eHetfo;
+        }
+      }
+    }
+  }
+}
 
