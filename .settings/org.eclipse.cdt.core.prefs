@@ -1,7 +1,7 @@
-#Sat Feb 12 19:02:07 CET 2011
+#Sun Apr 10 21:43:40 CEST 2011
 eclipse.preferences.version=1
 environment/project/0.237467838/PATH/delimiter=\:
 environment/project/0.237467838/PATH/operation=replace
-environment/project/0.237467838/PATH/value=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/usr/games\:/usr/hitech/picc-18/std/9.52/bin
+environment/project/0.237467838/PATH/value=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/usr/games\:/usr/hitech/picc-18/pro/9.65/bin
 environment/project/0.237467838/append=true
 environment/project/0.237467838/appendContributed=true
