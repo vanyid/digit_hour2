@@ -36,7 +36,7 @@ void interrupt low_priority isr_low()
   {
     TMR0IF = 0;
     SET_TMR0();
-    (void)ct_1ms_Run();
+    (void)TSCHED_Run(1);
   }
 
 }

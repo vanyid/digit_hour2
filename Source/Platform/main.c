@@ -9,6 +9,7 @@
 #include "ct_exp.h"
 #include "outd_exp.h"
 #include "upd_exp.h"
+#include "tsched_exp.h"
 
 
 
@@ -20,6 +21,7 @@ void main()
   (void)ct_Init();
   (void)OUTD_Init();
   (void)UPD_Init();
+  (void)TSCHED_Init();
 
   IPEN = 1;             /* enable high and low prio interrupt */
   PEIE = 1; GIE = 1;    /* enable interrupt */
@@ -30,11 +32,8 @@ void main()
   /* Go infinite loop (BackGround Task) */
   while (1)
   {
-    if (Run_1ms_task)
-    {
-      Run_1ms_task = FALSE;
-      (void)OUTD_Run();
-    }
+    /* Run RealTime tasks */
+    (void)TSCHED_RunMain();
 
     /* Background tasks */
     (void)UPD_Run();

@@ -2,17 +2,28 @@
  *
  *  Project: Ora
  * -------------------------
- *  filename   : isr_imp.h
- *  author     : vanyid
- *  created on : 2011.03.08.
+ *  filename: task.c
+ *  author:   vanyid
+ *  create date: 2011.04.23.
  *
  * ******************************************************************************************** */
 
-#ifndef ISR_IMP_H_
-#define ISR_IMP_H_
-
 #include "datatype.h"
-#include "ct_exp.h"
-#include "tsched_exp.h"
+#include "outd_exp.h"
 
-#endif
+
+void Task_1ms()
+{
+  (void)OUTD_Run();
+}
+
+void Task_100ms()
+{
+
+}
+
+void Task_1s()
+{
+
+}
+

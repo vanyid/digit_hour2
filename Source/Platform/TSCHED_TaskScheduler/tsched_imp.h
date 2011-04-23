@@ -2,17 +2,20 @@
  *
  *  Project: Ora
  * -------------------------
- *  filename   : isr_imp.h
+ *  filename   : tsched_imp.h
  *  author     : vanyid
- *  created on : 2011.03.08.
+ *  created on : 2011.04.23.
  *
  * ******************************************************************************************** */
 
-#ifndef ISR_IMP_H_
-#define ISR_IMP_H_
+#ifndef TSCHED_IMP_H_
+#define TSCHED_IMP_H_
 
 #include "datatype.h"
-#include "ct_exp.h"
-#include "tsched_exp.h"
+
+extern void Task_1ms();
+extern void Task_100ms();
+extern void Task_1s();
+
 
 #endif
