@@ -9,6 +9,7 @@
 #include "ct_exp.h"
 #include "outd_exp.h"
 #include "upd_exp.h"
+#include "hmi_exp.h"
 #include "tsched_exp.h"
 
 
@@ -21,6 +22,8 @@ void main()
   (void)ct_Init();
   (void)OUTD_Init();
   (void)UPD_Init();
+  (void)HMI_Init();
+
   (void)TSCHED_Init();
 
   IPEN = 1;             /* enable high and low prio interrupt */

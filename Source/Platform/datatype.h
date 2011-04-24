@@ -23,4 +23,6 @@ typedef char                   tBOOL;
 #define TRUE    1U
 #define FALSE   0x00
 
+#define getbit(value, id)     (tBOOL)((value >> id) & 0x1)
+
 #endif

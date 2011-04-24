@@ -2,29 +2,20 @@
  *
  *  Project: Ora
  * -------------------------
- *  filename: task.c
- *  author:   vanyid
- *  create date: 2011.04.23.
+ *  filename   : inph_imp.h
+ *  author     : vanyid
+ *  created on : 2011.04.24.
  *
  * ******************************************************************************************** */
 
+#ifndef HMI_IMP_H_
+#define HMI_IMP_H_
+
 #include "datatype.h"
-#include "outd_exp.h"
-#include "hmi_exp.h"
+#include "ct_exp.h"
+
+#define ButtonHour
 
 
-void Task_1ms()
-{
-  (void)OUTD_Run();
-}
 
-void Task_100ms()
-{
-  (void)HMI_Run();
-}
-
-void Task_1s()
-{
-  DiginActive = 2;
-}
-
+#endif
