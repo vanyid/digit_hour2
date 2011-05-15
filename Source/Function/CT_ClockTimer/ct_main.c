@@ -18,9 +18,8 @@
 /***********************************************************************************************
  *                                          GLOBAL VARIABLE
  ***********************************************************************************************/
-tBOOL Run_1ms_task;
 
-tTime Times[1];
+tTime Times[MAX_NUM_TIME_ZONES];
 
 /***********************************************************************************************
  *                                          LOCAL VARIABLE
@@ -59,12 +58,10 @@ tBOOL ct_Init()
   TMR0IE = 1;           // interrupt enable
   TMR0ON = 1;           // enable timer0
 
-  Run_1ms_task = FALSE;
-
-  for (ii=0; ii<1; ii++)
+  for (ii=0; ii < MAX_NUM_TIME_ZONES; ii++)
   {
     Times[ii].day = eHetfo;
-    Times[ii].hour = 22;
+    Times[ii].hour = 00;
     Times[ii].minute = 00;
     Times[ii].sec = 00;
   }
@@ -78,37 +75,58 @@ tBOOL ct_1s_Run()
 {
   tBOOL ret = TRUE;
 
-  IncTime(&Times[0]);
+  IncTime(&LOCALTIME);
 
   return (ret);
 }
 
-
-tBOOL ct_1ms_Run()
-{
-  tBOOL ret = TRUE;
-  Run_1ms_task = TRUE;
-  return (ret);
-}
-
-
-void IncTime(tTime *time)
+void IncTime(tTime *time /**<[in] Pointer to timer to increase */
+                          )
 {
   if (++time->sec == 60)
   {
     time->sec = 0;
-    if (++time->minute == 60)
+    if (IncTimeMinute(time))
     {
-      time->minute = 0;
-      if (++time->hour == 24)
+      if (IncTimeHour(time))
       {
-        time->hour = 0;
-        if (++time->day == (eVasarnap+1))
-        {
-          time->day = eHetfo;
-        }
+        (void)IncTimeDay(time);
       }
     }
   }
+}
+
+
+tBOOL IncTimeHour(tTime *time)
+{
+  tBOOL ret = FALSE;
+  if (++time->hour == 24)
+  {
+    time->hour = 0;
+    ret = TRUE;
+  }
+  return (ret);
+}
+
+tBOOL IncTimeMinute(tTime *time)
+{
+  tBOOL ret = FALSE;
+  if (++time->minute == 60)
+  {
+    time->minute = 0;
+    ret = TRUE;
+  }
+  return (ret);
+}
+
+tBOOL IncTimeDay(tTime *time)
+{
+  tBOOL ret = FALSE;
+  if (++time->day == (eVasarnap + 1))
+  {
+    time->day = eHetfo;
+    ret = TRUE;
+  }
+  return (ret);
 }
 

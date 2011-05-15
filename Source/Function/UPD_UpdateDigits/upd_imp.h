@@ -15,4 +15,8 @@
 #include "outd_exp.h"
 #include "ct_exp.h"
 
+
+#define LocalTime       LOCALTIME
+
+
 #endif

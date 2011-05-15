@@ -11,102 +11,13 @@
 #include "hmi_imp.h"
 #include "hmi_exp.h"
 
+tCallHMIFunc HMIFuncs[MAX_NUM_HMI_FUNC] = {
+                                             SLT_CheckOn, SLT_Run, SLT_PassFocus
+                                          };
 
-eSettingState SettingState = Standby;
+eHMIFuncName  ActHMIFunc = Standby;
 
-tUI16 DiginActive = 0;
-static tUI8 cntLongButtonHour = 0;
-static tUI8 cntButtonHour = 0;
-static tUI8 delayIncHour = 2;
-
-static tUI8 cntLongButtonMin = 0;
-static tUI8 cntButtonMin = 0;
-static tUI8 delayIncMin = 2;
-
-static tUI8 cntLongButtonDay = 0;
-static tUI8 cntButtonDay = 0;
-static tUI8 delayIncDay = 2;
-
-void runSetAlarm()
-{
-
-}
-
-void runSetTime()
-{
-
-    /* Hour button */
-  if (getbit(DiginActive, 0) && !getbit(DiginActive, 1))
-  {
-    if (!cntButtonHour)
-    {
-      if (++Times[0].hour == 24)
-      {
-        Times[0].hour = 0;
-      }
-    }
-
-    if (++cntButtonHour >= delayIncHour) { cntButtonHour = 0; }
-
-    if (cntLongButtonHour >= 10)
-    {
-      delayIncHour = 1;
-    }
-    else
-    {
-      ++cntLongButtonHour;
-    }
-  }
-  else
-    if (!getbit(DiginActive, 0) && getbit(DiginActive, 1))
-  {
-    if (!cntButtonMin)
-    {
-      if (++Times[0].minute == 60)
-      {
-        Times[0].minute = 0;
-      }
-    }
-
-    if (++cntButtonMin >= delayIncMin) { cntButtonMin = 0; }
-
-    if (cntLongButtonMin >= 10)
-    {
-      delayIncMin = 1;
-    }
-    else
-    {
-      ++cntLongButtonMin;
-    }
-  }
-  else
-    if (getbit(DiginActive, 0) && getbit(DiginActive, 1))
-  {
-      if (!cntButtonDay)
-      {
-        if (++Times[0].day == (eVasarnap+1))
-        {
-          Times[0].day = (eHetfo);
-        }
-      }
-
-      if (++cntButtonDay >= delayIncDay) { cntButtonDay = 0; }
-
-      if (cntLongButtonDay >= 10)
-      {
-        delayIncDay = 1;
-      }
-      else
-      {
-        ++cntLongButtonDay;
-      }
-  }
-    else
-    {
-      SettingState = Standby;
-    }
-}
-
+tUI16 DiginActive;
 
 /* *************************** *
  *  Init component             *
@@ -115,7 +26,7 @@ tBOOL HMI_Init()
 {
   tBOOL ret = TRUE;
 
-  SettingState = Standby;
+  ActHMIFunc = Standby;
 
   return (ret);
 }
@@ -126,45 +37,24 @@ tBOOL HMI_Init()
 tBOOL HMI_Run()
 {
   tBOOL ret = TRUE;
+  tUI8  ii;
 
-  if (Standby == SettingState)
+  for (ii = 0; ii < MAX_NUM_HMI_FUNC; ii++)
   {
-    if (getbit(DiginActive, 0) || getbit(DiginActive, 1))
+    if ( (Standby == ActHMIFunc) && (HMIFuncs[ii].CheckOn()) )
     {
-      cntLongButtonHour = 0;
-      cntButtonHour = 0;
-      delayIncHour = 2;
+      ActHMIFunc = (eHMIFuncName)ii;
+    }
 
-      cntLongButtonMin = 0;
-      cntButtonMin = 0;
-      delayIncMin = 2;
-
-      cntLongButtonDay = 0;
-      cntButtonDay = 0;
-      delayIncDay = 2;
-
-      SettingState = SetTime;
+    if ( ((eHMIFuncName)ii == ActHMIFunc) && (HMIFuncs[ii].PassFocus()) )
+    {
+      ActHMIFunc = Standby;
     }
   }
-  else
+
+  if ((Standby != ActHMIFunc) && (MAX_NUM_HMI_FUNC > ActHMIFunc))
   {
-    switch (SettingState)
-    {
-      case SetTime:
-          runSetTime();
-        break;
-
-      case SetAlarm:
-          runSetAlarm();
-        break;
-
-      case OnOffAlarm:
-
-        break;
-
-      default:
-        break;
-    }
+    (void)HMIFuncs[(tUI8)ActHMIFunc].Run();
   }
 
   return (ret);

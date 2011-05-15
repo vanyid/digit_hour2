@@ -44,12 +44,19 @@ typedef struct
 // ~1ms timer
 #define SET_TMR0() \
   TMR0L = 0x00;
+
 /***********************************************************************************************
  *                                          GLOBAL VARIABLE
  ***********************************************************************************************/
+enum
+{
+   LocalTimeZone       = 0
+  ,MAX_NUM_TIME_ZONES
+} eTimeZones;
 
-extern tBOOL Run_1ms_task;
-extern tTime Times[1];
+extern tTime Times[MAX_NUM_TIME_ZONES];
+
+#define LOCALTIME   Times[LocalTimeZone]
 
 /***********************************************************************************************
  *                                          LOCAL VARIABLE
@@ -64,8 +71,10 @@ extern tTime Times[1];
 
 extern tBOOL ct_Init();
 extern tBOOL ct_1s_Run();
-extern tBOOL ct_1ms_Run();
 
 extern void IncTime(tTime *time);
+extern tBOOL IncTimeHour(tTime *time);
+extern tBOOL IncTimeMinute(tTime *time);
+extern tBOOL IncTimeDay(tTime *time);
 
 #endif

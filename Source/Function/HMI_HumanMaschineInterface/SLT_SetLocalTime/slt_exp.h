@@ -2,41 +2,19 @@
  *
  *  Project: Ora
  * -------------------------
- *  filename   : inph_exp.h
+ *  filename   : slt_exp.h
  *  author     : vanyid
- *  created on : 2011.04.24.
+ *  created on : 2011.05.15.
  *
  * ******************************************************************************************** */
 
-#ifndef HMI_EXP_H_
-#define HMI_EXP_H_
-
-/***********************************************************************************************
- *                                               MACROS
- ***********************************************************************************************/
-
+#ifndef SLT_EXP_H_
+#define SLT_EXP_H_
 
 /***********************************************************************************************
  *                                          GLOBAL VARIABLE
  ***********************************************************************************************/
 
-typedef enum
-{
-   SetTime            = 0
-  ,MAX_NUM_HMI_FUNC
-  ,Standby            = 0xFF
-} eHMIFuncName;
-
-
-typedef struct
-{
-    tBOOL (*CheckOn)();
-    tBOOL (*Run)();
-    tBOOL (*PassFocus)();
-} tCallHMIFunc;
-
-
-extern tUI16 DiginActive;
 
 /***********************************************************************************************
  *                                          LOCAL VARIABLE
@@ -49,7 +27,9 @@ extern tUI16 DiginActive;
  *                                            PROTOTYPES
  ***********************************************************************************************/
 
-extern tBOOL HMI_Init();
-extern tBOOL HMI_Run();
+extern tBOOL SLT_CheckOn();
+extern tBOOL SLT_Run();
+extern tBOOL SLT_PassFocus();
+
 
 #endif

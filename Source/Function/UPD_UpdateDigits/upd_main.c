@@ -30,11 +30,11 @@ tBOOL UPD_Run()
   tBOOL ret = TRUE;
   /* Calculate the numeric digit of the time */
 
-  Digit[0].Value = (eDigit)(Times[0].hour / 10);
-  Digit[1].Value = (eDigit)(Times[0].hour % 10);
-  Digit[2].Value = (eDigit)(Times[0].minute / 10);
-  Digit[3].Value = (eDigit)(Times[0].minute % 10);
-  Digit[1].Dot   = (tBOOL)(Times[0].sec & 0x01);
+  Digit[0].Value = (eDigit)(LocalTime.hour / 10);
+  Digit[1].Value = (eDigit)(LocalTime.hour % 10);
+  Digit[2].Value = (eDigit)(LocalTime.minute / 10);
+  Digit[3].Value = (eDigit)(LocalTime.minute % 10);
+  Digit[1].Dot   = (tBOOL)(LocalTime.sec & 0x01);
 
   return (ret);
 }
