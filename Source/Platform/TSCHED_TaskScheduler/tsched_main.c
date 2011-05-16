@@ -12,28 +12,15 @@
 #include "tsched_exp.h"
 
 
-tTask  Tasks[MAX_TASK_NUM] =
+tTask  Tasks[] =
     {
-        {
-            Task_1ms,
-            1,
-            0,
-            STANDBY
-        },
-        {
-            Task_100ms,
-            100,
-            0,
-            STANDBY
-        },
-        {
-            Task_1s,
-            1000,
-            0,
-            STANDBY
-        }
+        { Task_1ms,      5, 0, STANDBY },
+        { Task_10ms,    20, 0, STANDBY },
+        { Task_100ms,  200, 0, STANDBY },
+        { Task_1s,    2000, 0, STANDBY },
     };
 
+const tUI8 MAX_TASK_NUM = sizeof(Tasks) / sizeof(Tasks[0]);
 
 
 /* *************************** *

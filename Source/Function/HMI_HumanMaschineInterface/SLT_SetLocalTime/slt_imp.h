@@ -19,6 +19,7 @@
 #define incLOCAL_TMINUTE    IncTimeMinute(&LOCALTIME)
 #define incLOCAL_TDAY       IncTimeDay(&LOCALTIME)
 
-#define ACTIVE_SLT          (tBOOL)(2 == DiginActive)
+#define SLT_DIN_HOUR_ACTIVE      (tBOOL)(2 == DiginActive)
+#define SLT_DIN_MINUTE_ACTIVE    (tBOOL)(3 == DiginActive)
 
 #endif

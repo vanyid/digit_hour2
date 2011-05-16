@@ -48,8 +48,8 @@ tBOOL ct_Init()
   /* TIMER0 1ms timer */
   T0CS = 0;             // internal source Fosc/4
   PSA  = 0;             // Use the prescaler
-  T0PS2 = 1;
-  T0PS1 = 0;            // 1:64
+  T0PS2 = 0;
+  T0PS1 = 1;            // 1:16
   T0PS0 = 1;
   T08BIT = 1;           // 16bit mode
   SET_TMR0();

@@ -18,13 +18,18 @@ void Task_1ms()
   (void)OUTD_Run();
 }
 
-void Task_100ms()
+void Task_10ms()
 {
   (void)HMI_Run();
 }
 
+void Task_100ms()
+{
+
+}
+
 void Task_1s()
 {
-  DiginActive = 2;
+  DiginActive = 3;
 }
 

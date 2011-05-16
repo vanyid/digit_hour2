@@ -14,6 +14,7 @@
 #include "datatype.h"
 
 extern void Task_1ms();
+extern void Task_10ms();
 extern void Task_100ms();
 extern void Task_1s();
 
