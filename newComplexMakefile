@@ -1,0 +1,133 @@
+## -*- Makefile -*-
+##
+## User: Dell
+## Time: 2011.08.16. 20:42:53
+## Makefile created by Oracle Solaris Studio.
+##
+## This file is generated automatically.
+##
+
+TARGET = ora
+
+
+
+ECHO := echo
+SHELL := sh
+MKDIR := mkdir -p
+RM := rm -f
+CP = cp -f
+
+
+# Output directories
+OUTPUT_DIR := Compile
+TARGET_DIR := $(OUTPUT_DIR)/$(TARGET)
+DEP_DIR := $(TARGET_DIR)/dep
+INC_DIR := $(TARGET_DIR)/inc
+OBJ_DIR := $(TARGET_DIR)/obj
+
+# From compiler
+CC := picc18.exe
+
+# from project
+PROC := 18F452
+
+# target depend file names
+TARGET_FULL := $(TARGET_DIR)/$(addsuffix .hex, $(TARGET_NAME))
+
+
+
+
+SUBDIRS = $(SOURCE_DIR)
+SOURCES = $(SOURCE_DIR)/main.c
+
+SOURCE_DIR = ./Source
+PLATFORM_DIR = $(SOURCE_DIR)/Platform
+FUNCTION_DIR = $(SOURCE_DIR)/Function
+
+FUNCTION_MAKEFILE := $(PLATFORM_DIR)/makefile.mk $(FUNCTION_DIR)/makefile.mk
+
+include $(FUNCTION_MAKEFILE)
+
+vpath %.c $(SUBDIRS)
+
+C_OBJ_MANUAL := $(addprefix $(OBJ_DIR)/,$(notdir $(subst .c,.obj,$(filter %.c, $(SOURCES)))))
+
+
+
+FLAGS = --chip=$(PROC) -Q
+DEFINES =
+
+
+
+
+
+
+
+
+
+##################################
+# Macros
+##################################
+#$(call check_and_create_dir,directory)
+define check_and_create_dir
+	if [ ! -d $1 ]; then \
+		$(MKDIR) $1; \
+		fi;
+endef
+
+
+
+
+
+
+
+
+
+
+##################################
+# Rules
+##################################
+.PHONY: all
+
+all: ora
+	@$(ECHO) all
+
+## Target: ora
+ora: $(TARGET_FULL)
+	@$(ECHO) ora
+
+
+$(TARGET_FULL): $(TARGET_DIR)/common_includes.inc $(C_OBJ_MANUAL)
+	@$(ECHO) target_full
+
+$(OBJ_DIR)/%.obj: %.c 
+	@$(call check_and_create_dir,$(OBJ_DIR))
+	@$(RM) $@ $(OBJ_DIR)/$(subst .s,.p,$(notdir $<)) $(OBJ_DIR)/$(subst .s,.err,$(notdir $<))
+	@$(ECHO) "#Compiling $<"
+#	@$(ECHO) "$(CC) -I $(TARGET_DIR)/hitech_include.inc $(FLAGS) $(DEFINES) -c$@ $<"
+	@$(CC) -I$(INC_DIR) $(FLAGS) $(DEFINES) -c --outdir=$(OBJ_DIR) $<
+
+header_files:
+	$(call check_and_create_dir,$(INC_DIR))
+	$(RM) *.h
+	@for subdir in $(SUBDIRS) ; \
+		do $(CP) $$subdir/*.h $(INC_DIR) ; \
+		done
+
+#$(DEP_DIR)/%.d: %.c
+	
+
+$(TARGET_DIR)/common_includes.inc: $(FUNCTION_MAKEFILE) header_files
+	@$(ECHO) common_include
+	@$(call check_and_create_dir,$(TARGET_DIR))
+	@$(RM) $(TARGET_DIR)/common_includes.inc
+	@for subdir in $(SUBDIRS) ; \
+		do $(ECHO) $$subdir >> $(TARGET_DIR)/common_includes.inc ; \
+		done
+	
+
+#### Clean target deletes all generated files ####
+clean:
+	@$(ECHO) Remove target directory
+	@$(RM) -r $(TARGET_DIR)
+	
