@@ -1,6 +1,6 @@
 #!/usr/bin/perl -s
 
-# Usage: Usage: perl picc18_dep.pl -dep_file=*.d -obj_file=*.o
+# Usage: Usage: perl picc18_dep.pl -dep_file=*.d -obj_file=*.p1
 
 # -----------------------------------------------------------------------------
 # Standard exit process

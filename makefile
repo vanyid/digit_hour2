@@ -31,7 +31,7 @@ SCRIPTS := ./Scripts
 
 TARGET_HEX := $(OUTPUT_DIR)/$(addsuffix .hex, $(TARGET_NAME))
 
-MAKEFILE := ./makefile
+MAKEFILE := makefile
 PLATFORM_MAKEFILE := $(PLATFORM_DIR)/makefile.mk
 FUNCTION_MAKEFILE := $(FUNCTION_DIR)/makefile.mk
 
@@ -104,8 +104,7 @@ $(DEP_DIR)/%.dep: %.c
 	@$(call check_and_create_dir,$(DEP_DIR))
 	@$(ECHO) "#Dependency $<" 
 #	@$(ECHO) "$(call make-depend,$<,$(addprefix $(OBJ_DIR)/,$(subst .c,.o, $(notdir $<))),$@)"
-	@$(call make-depend,$<,$(addprefix $(OBJ_DIR)/,$(subst .c,.o, $(notdir $<))),$@)
-	@$(RM) -f $(OBJ_DIR)/$(subst .c,.p1,$(notdir $<))
+	@$(call make-depend,$<,$(addprefix $(OBJ_DIR)/,$(subst .c,.p1, $(notdir $<))),$@)
 
 $(TARGET_HEX): $(OBJ_FILES) $(MAKEFILE) $(PLATFORM_MAKEFILE) $(PLATFORM_MAKEFILE)
 	@$(ECHO) "Linking $@"
